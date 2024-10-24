@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 2 - Simple Word Problems</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #logo img {
+            width: 150px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        #problem {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #answer {
+            padding: 10px;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        #submit {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #submit:hover {
+            background-color: darkgreen;
+        }
+        #feedback {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #more-lessons {
+            margin-top: 40px;
+            font-size: 18px;
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        #more-lessons:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo at the top -->
+    <div id="logo">
+        <img src="https://i.imgur.com/mwpTHJj.png" alt="Logo">
+    </div>
+
+    <h1>Simple Word Problems</h1>
+
+    <!-- Display Word Problem -->
+    <div id="problem"></div>
+
+    <!-- Input for Learner's Answer -->
+    <input type="number" id="answer" placeholder="Your answer">
+    <button id="submit">Submit</button>
+
+    <div id="feedback"></div>
+
+    <!-- "More Lessons" button at the bottom -->
+    <a id="more-lessons" href="https://sites.google.com/view/grades-2/home">More Lessons</a>
+
+    <script>
+        const problemElement = document.getElementById('problem');
+        const answerInput = document.getElementById('answer');
+        const submitButton = document.getElementById('submit');
+        const feedback = document.getElementById('feedback');
+
+        let currentProblem;
+        let currentAnswer;
+
+        function generateWordProblem() {
+            // Clear previous feedback and answer
+            feedback.innerText = '';
+            answerInput.value = '';
+
+            // Generate random numbers for the problem
+            const name = "John"; // You can also randomize names if desired
+            const mangoes = Math.floor(Math.random() * 20) + 5; // 5 to 24 mangoes
+            const giveAway = Math.floor(Math.random() * (mangoes - 1)) + 1; // 1 to mangoes - 1
+
+            // Create the word problem
+            currentProblem = `${name} has ${mangoes} mangoes. He gives ${giveAway} to his friend. How many mangoes does ${name} have left?`;
+            currentAnswer = mangoes - giveAway;
+
+            // Display the problem
+            problemElement.innerText = currentProblem;
+        }
+
+        submitButton.onclick = function() {
+            const userAnswer = parseInt(answerInput.value);
+            if (userAnswer === currentAnswer) {
+                feedback.innerText = "Correct! Well done!";
+                feedback.style.color = "green";
+                setTimeout(generateWordProblem, 2000); // Move to next question after 2 seconds
+            } else {
+                feedback.innerText = "Oops! Try again.";
+                feedback.style.color = "red";
+                answerInput.value = ''; // Clear the input for another attempt
+            }
+        };
+
+        // Initialize word problem on page load
+        window.onload = function() {
+            generateWordProblem();
+        };
+    </script>
+
+</body>
+</html>
